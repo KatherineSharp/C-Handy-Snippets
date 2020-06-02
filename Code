@@ -1,0 +1,60 @@
+C# helpful snippets
+
+public void GroupHeader_Format()
+{
+// If there is no item applicable hide the section
+ rpt.Sections["GroupHeader"].Visible = (rpt.GetControlDecimalValue("GroupHeader",  "txtField(item in referance") != 0);
+}
+
+
+//Changing heading to suit relevent
+if (rpt.GetControlText("PageHeader", "txtType(item in referance)") == "3")
+  		{
+    		((Label)rpt.Sections["PageHeader"].Controls["lblContractHeading"]).Text = "New Header Text Here";
+  		}
+
+
+//average of 9 / 4 = 10
+public void GroupFooter1_Format()
+{
+	((TextBox) rpt.Sections["GroupFooter1"].Controls["TextBox10"]).Value = Math.Round(
+		(
+		rpt.GetControlDecimalValue("GroupFooter1", "TextBox9")
+		)
+		/
+		rpt.GetControlDecimalValue("GroupFooter1", "TextBox4")
+		* 100, 1)
+		;
+}
+
+
+
+//Else true and Faulse
+ else
+	{
+		((Label)rpt.Sections["GroupHeader2"].Controls["lblBalanceForward"]).Visible = false;
+		((TextBox)rpt.Sections["GroupHeader2"].Controls["txtbxBalance_Forward_Amt"]).Visible = false;
+
+		((Label)rpt.Sections["GroupHeader2"].Controls["lblDebit"]).Visible = false;
+		((Label)rpt.Sections["GroupHeader2"].Controls["lblCredit"]).Visible = false;
+
+		// Open Item Text
+		((Label)rpt.Sections["GroupHeader2"].Controls["lblOriginalAmount"]).Visible = true;
+		((Label)rpt.Sections["GroupHeader2"].Controls["lblAmountOutstanding"]).Visible = true;
+}
+
+//simple if and else true statement
+if (((TextBox) rpt.Sections["GroupHeader1"].Controls["txtReceiptCode"]).Text == "1")
+	{
+		((Label) rpt.Sections["GroupHeader1"].Controls["lblDebtor"]).Visible = true;
+		((Label) rpt.Sections["GroupHeader1"].Controls["lblCreditor"]).Visible = false;
+	}
+	if (((TextBox) rpt.Sections["GroupHeader1"].Controls["txtReceiptCode"]).Text == "2") 
+	{
+		((Label) rpt.Sections["GroupHeader1"].Controls["lblDebtor"]).Visible = false;
+		((Label) rpt.Sections["GroupHeader1"].Controls["lblCreditor"]).Visible = true;
+	}
+	else
+	{
+		((Label) rpt.Sections["GroupHeader1"].Controls["lblAccount"]).Visible = true;
+	}
